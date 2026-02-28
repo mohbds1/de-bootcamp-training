@@ -1,0 +1,61 @@
+id,title,content
+1,AI Trends 2026,Artificial intelligence is changing products and workflows. Teams use models for search writing and coding support.
+2,Robotics at Work,Robots assist with picking packing and inspection. Sensors and planning help safe movement near people.
+3,Data Pipelines 101,Data pipelines move events from apps to storage. Validation and monitoring reduce bad data.
+4,Cloud Costs Explained,Cloud spending grows with storage and traffic. Right sizing and caching lower monthly cost.
+5,Cybersecurity Basics,Security starts with strong passwords and updates. Multi factor authentication blocks many attacks.
+6,Product Analytics,Analytics tracks funnels retention and churn. Clean definitions make metrics comparable across teams.
+7,Machine Learning Overview,Machine learning uses data to improve predictions. Training testing and validation prevent overfitting.
+8,NLP for Search,Natural language processing improves search relevance. Tokenization ranking and embeddings are common tools.
+9,Vision Models,Computer vision finds objects and patterns in images. Applications include quality checks and medical scans.
+10,Recommendation Systems,Recommenders predict what users may like. Similarity and ranking improve engagement.
+11,Time Series Forecasting,Forecasting estimates future demand and load. Seasonality and anomalies affect accuracy.
+12,Streaming Systems,Streaming systems process events in near real time. Backpressure and retries handle spikes.
+13,Databases and Indexes,Indexes speed up queries by organizing data. Tradeoffs include write cost and storage size.
+14,Vector Databases,Vector search finds nearest neighbors in embedding space. It supports semantic search and retrieval.
+15,Prompt Engineering,Clear prompts improve model outputs. Constraints examples and formatting reduce ambiguity.
+16,Model Evaluation,Evaluation checks accuracy bias and latency. Offline tests and online experiments complement each other.
+17,A B Testing,Experiments measure causal impact. Randomization and power analysis reduce misleading results.
+18,UX Writing,Microcopy guides users through tasks. Simple language increases clarity and trust.
+19,Accessibility Checklist,Accessible design supports all users. Contrast keyboard navigation and captions matter.
+20,Mobile Performance,Fast apps keep users engaged. Image compression and lazy loading reduce load time.
+21,Distributed Systems,Distributed systems coordinate many machines. Consensus replication and partitioning are key topics.
+22,API Design,Good APIs are consistent and predictable. Versioning and clear errors help developers.
+23,Logging and Observability,Logs metrics and traces reveal system health. Alerts should be actionable not noisy.
+24,DevOps Practices,DevOps automates build test and deploy. Small releases reduce risk and speed feedback.
+25,Containers and Images,Containers package code with dependencies. Images should be small and reproducible.
+26,Kubernetes Concepts,Kubernetes schedules containers on clusters. Services and ingress expose apps to users.
+27,Edge Computing,Edge computing moves compute closer to users. It reduces latency for video and IoT workloads.
+28,IoT Sensors,IoT devices collect temperature motion and location. Security updates are critical for fleets.
+29,Database Migrations,Migrations change schemas safely over time. Backfills and rollbacks prevent outages.
+30,Schema Design,Good schemas match query patterns. Normalization and denormalization balance speed and simplicity.
+31,Search Ranking,Ranking orders results by usefulness. Features include text match freshness and popularity.
+32,Information Retrieval,Retrieval finds documents related to a query. Precision and recall measure quality.
+33,Embeddings Explained,Embeddings map items to vectors. Similar meaning tends to have nearby vectors.
+34,Graph Algorithms,Graphs model relationships between entities. PageRank and shortest path are classic examples.
+35,Privacy by Design,Privacy should be built in from the start. Data minimization and access control reduce risk.
+36,Encryption Essentials,Encryption protects data in transit and at rest. Key management is as important as algorithms.
+37,Secure Coding,Secure coding avoids common bugs. Input validation and safe defaults prevent exploits.
+38,Incident Response,Teams prepare runbooks for incidents. Communication and timelines help recovery.
+39,SRE Error Budgets,Error budgets balance reliability and speed. They guide when to pause launches.
+40,Load Testing,Load tests simulate traffic spikes. Bottlenecks often appear in databases and caches.
+41,Caching Strategies,Caches store frequent results for speed. Eviction policies affect hit rate.
+42,CDNs for Media,CDNs serve content from nearby locations. They reduce latency and origin load.
+43,Backend Architecture,Backends expose services to clients. Clear boundaries reduce coupling.
+44,Frontend State,State management organizes UI data. Predictable flows reduce bugs.
+45,Design Systems,Design systems standardize components. Shared tokens improve consistency.
+46,Code Review Habits,Reviews catch bugs and improve style. Small pull requests are easier to review.
+47,Testing Pyramid,Unit tests are fast and focused. Integration tests cover critical paths.
+48,Refactoring Safety,Refactoring improves structure without changing behavior. Tests provide confidence.
+49,Technical Documentation,Docs explain how to run and change systems. Examples and diagrams reduce confusion.
+50,Team Communication,Good communication reduces rework. Written decisions help future readers.
+51,Leadership in Engineering,Leaders set direction and remove blockers. Coaching builds stronger teams.
+52,Project Planning,Planning defines scope milestones and risks. A clear definition of done helps delivery.
+53,Agile Rituals,Standups and retrospectives support iteration. The goal is learning not ceremony.
+54,Data Quality Checks,Quality checks catch nulls duplicates and drift. Automated checks scale better than manual review.
+55,Feature Stores,Feature stores reuse validated features. They reduce training serving skew.
+56,Model Serving,Serving delivers predictions via APIs. Latency and stability matter in production.
+57,LLM Safety,Safe outputs avoid harmful or private data. Filters and policies reduce risk.
+58,Multilingual NLP,Multilingual models support many languages. Tokenization and scripts affect performance.
+59,Knowledge Bases,Knowledge bases store curated facts. Retrieval improves accuracy for assistants.
+60,Future of AI Products,AI products combine models with UX. Human feedback improves the experience over time.
