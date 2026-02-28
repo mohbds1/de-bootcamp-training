@@ -15,9 +15,11 @@
 
 ## 🧭 Overview
 
-This repository contains my practical work from a Data Engineering Bootcamp. It shows my hands-on experience working with data using Python and modern tools.
+This repository contains my practical work from a Data Engineering Bootcamp. It showcases my hands-on experience working with data using Python and modern tools.
 
 The projects here reflect my learning journey as I build strong foundations in data engineering and data analysis.
+
+This work was completed as part of a Data Engineering Bootcamp delivered by **A1 Consulting**.
 
 ---
 
