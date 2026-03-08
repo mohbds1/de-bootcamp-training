@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Projects</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h2>Task Management System</h2>
+            <div class="nav-links">
+                <a href="manager-dashboard.html" id="nav-dashboard">Dashboard</a>
+                <a href="projects.html" id="nav-projects">Projects</a>
+                <a href="users.html" id="nav-users">Users</a>
+                <a href="my-tasks.html" id="nav-my-tasks" style="display:none;">My Tasks</a>
+                <div class="nav-user-info" id="nav-user"></div>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Projects</h1>
+            <button id="newProjectBtn" class="btn btn-primary">New Project</button>
+        </div>
+
+        <div id="projectFormCard" class="card" style="display: none;">
+            <h2 id="formTitle">Create Project</h2>
+            <form id="projectForm">
+                <input type="hidden" id="projectId" />
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" required />
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option value="planned">Planned</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                 <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" id="start_date" />
+                </div>
+                 <div class="form-group">
+                    <label for="end_date">End Date</label>
+                    <input type="date" id="end_date" />
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Save Project</button>
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+            <div id="formErrorMessage" class="error-message" style="display: none; margin-top: 16px;"></div>
+        </div>
+
+        <div id="projectsListSection">
+        <div class="card filters-card">
+            <h3 style="margin-bottom: 12px;">Search & Filter</h3>
+            <div class="filters-row">
+                <input type="text" id="projectSearch" placeholder="Search by title or description..." class="filter-input" />
+                <select id="projectStatusFilter">
+                    <option value="">All statuses</option>
+                    <option value="planned">Planned</option>
+                    <option value="active">Active</option>
+                    <option value="completed">Completed</option>
+                </select>
+                <button type="button" id="applyProjectFilters" class="btn btn-primary">Apply</button>
+            </div>
+        </div>
+
+        <div id="projectsGrid" class="grid">
+            <!-- Project cards will be loaded here by JS -->
+        </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/projects.js"></script>
+</body>
+</html>

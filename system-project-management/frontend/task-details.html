@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Task Details</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h2>Task Management System</h2>
+            <div class="nav-links">
+                <a href="manager-dashboard.html" id="nav-dashboard">Dashboard</a>
+                <a href="projects.html" id="nav-projects">Projects</a>
+                <a href="users.html" id="nav-users">Users</a>
+                <a href="my-tasks.html" id="nav-my-tasks" style="display:none;">My Tasks</a>
+                <div class="nav-user-info" id="nav-user"></div>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 800px;">
+        <!-- Task Info -->
+        <div id="taskInfoCard" class="card">
+            <!-- Task details will be loaded here by JS -->
+            <p>Loading task details...</p>
+        </div>
+
+        <!-- Status Update Form (for employees only) -->
+        <div id="statusUpdateCard" class="card" style="display: none;">
+            <h3>Update Task Status</h3>
+            <form id="statusForm">
+                <div class="form-group">
+                    <label for="task_status">Status:</label>
+                    <select id="task_status" name="status" required>
+                        <option value="todo">To Do</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Status</button>
+                <div id="statusError" class="error-message" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/task-details.js"></script>
+</body>
+</html>

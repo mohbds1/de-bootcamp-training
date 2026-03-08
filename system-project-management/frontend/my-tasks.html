@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Tasks</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <h2>Task Management System</h2>
+      <div class="nav-links">
+        <a href="manager-dashboard.html" id="nav-dashboard">Dashboard</a>
+        <a href="projects.html" id="nav-projects">Projects</a>
+        <a href="users.html" id="nav-users">Users</a>
+        <a href="my-tasks.html" id="nav-my-tasks">My Tasks</a>
+        <div class="nav-user-info" id="nav-user"></div>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>My Tasks</h1>
+    </div>
+    <div id="errorMessage" class="error-message card" style="display: none;"></div>
+    <div id="myTasksList" class="grid"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/my-tasks.js"></script>
+</body>
+</html>

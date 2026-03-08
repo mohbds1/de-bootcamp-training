@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Users</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h2>Task Management System</h2>
+            <div class="nav-links">
+                <a href="manager-dashboard.html" id="nav-dashboard">Dashboard</a>
+                <a href="projects.html" id="nav-projects">Projects</a>
+                <a href="users.html" id="nav-users">Users</a>
+                <a href="my-tasks.html" id="nav-my-tasks" style="display:none;">My Tasks</a>
+                <div class="nav-user-info" id="nav-user"></div>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>User Management</h1>
+            <button id="newUserBtn" class="btn btn-primary">New User</button>
+        </div>
+
+        <div id="userFormCard" class="card" style="display: none;">
+            <h2 id="userFormTitle">Create User</h2>
+            <form id="userForm">
+                <input type="hidden" id="userId" />
+
+                <div class="form-group">
+                    <label for="user_username">Username</label>
+                    <input type="text" id="user_username" required minlength="3" />
+                </div>
+
+                <div class="form-group">
+                    <label for="user_email">Email</label>
+                    <input type="email" id="user_email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="user_full_name">Full name (optional)</label>
+                    <input type="text" id="user_full_name" />
+                </div>
+
+                <div class="form-group" id="passwordRow">
+                    <label for="user_password">Password</label>
+                    <input type="password" id="user_password" required minlength="6" />
+                </div>
+
+                <div class="form-group" id="roleRow" style="display: none;">
+                    <label for="user_role">Role</label>
+                    <select id="user_role">
+                        <option value="employee">Employee</option>
+                        <option value="manager">Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="isActiveRow" style="display: none;">
+                    <label for="user_is_active">Status</label>
+                    <select id="user_is_active">
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" id="cancelUserBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+            <div id="userFormError" class="error-message" style="display: none; margin-top: 16px;"></div>
+        </div>
+
+        <div id="usersListSection">
+        <div class="card filters-card">
+            <h3 style="margin-bottom: 12px;">Search & Filter</h3>
+            <div class="filters-row">
+                <input type="text" id="userSearch" placeholder="Search by name, email..." class="filter-input" />
+                <select id="userRoleFilter">
+                    <option value="">All roles</option>
+                    <option value="manager">Manager</option>
+                    <option value="employee">Employee</option>
+                </select>
+                <select id="userStatusFilter">
+                    <option value="">All statuses</option>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+                <button type="button" id="applyUserFilters" class="btn btn-primary">Apply</button>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <h2>All users</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- User data will be inserted here by users.js -->
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <!-- cache-busted users script -->
+    <script src="js/users.js?v=2"></script>
+</body>
+</html>

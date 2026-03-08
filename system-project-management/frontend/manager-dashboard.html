@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h2>Task Management System</h2>
+            <div class="nav-links">
+                <a href="manager-dashboard.html" id="nav-dashboard">Dashboard</a>
+                <a href="projects.html" id="nav-projects">Projects</a>
+                <a href="users.html" id="nav-users">Users</a>
+                <a href="my-tasks.html" id="nav-my-tasks" style="display:none;">My Tasks</a>
+                <div class="nav-user-info" id="nav-user"></div>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Manager Dashboard</h1>
+        </div>
+        
+        <div id="errorMessage" class="error-message card" style="display: none;"></div>
+
+        <!-- Summary Cards -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <h3>Total Projects</h3>
+                <p id="projectsCount">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Tasks</h3>
+                <p id="tasksCount">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <p id="completedCount">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>In Progress</h3>
+                <p id="inProgressCount">...</p>
+            </div>
+            <div class="stat-card">
+                <h3>To Do</h3>
+                <p id="todoCount">...</p>
+            </div>
+        </div>
+
+        <!-- Recent Items -->
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+            <div class="table-card">
+                <h3>Recent Projects</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>End Date</th>
+                            <th style="width: 50px;"></th> <!-- For button -->
+                        </tr>
+                    </thead>
+                    <tbody id="recentProjectsTableBody">
+                        <!-- JS will populate this -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-card">
+                <h3>Recent Tasks</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Project</th>
+                            <th>Status</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTasksTableBody">
+                        <!-- JS will populate this -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/manager-dashboard.js"></script>
+</body>
+</html>
