@@ -90,5 +90,5 @@ I am currently seeking **entry-level Data Engineering opportunities** where I ca
 ---
 
 <p align="center">
-  ⭐ If you find this repository helpful, consider giving it a star
+  ⭐ If you find this repository helpful, consider giving it a star 😊
 </p>
