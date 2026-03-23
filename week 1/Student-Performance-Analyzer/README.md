@@ -1,7 +1,7 @@
 <h1 align="center">🎓 Student Performance Analyzer</h1>
 
 <p align="center">
-  A professional command-line system for managing students, tracking grades, and generating performance analytics — built with clean OOP architecture in pure Python.
+  A command-line system for managing students, tracking grades, and generating performance analytics — built with clean OOP architecture in pure Python.
 </p>
 
 <p align="center">
