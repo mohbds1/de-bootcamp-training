@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Details</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h2>Task Management System</h2>
+            <div class="nav-links">
+                <a href="manager-dashboard.html" id="nav-dashboard">Dashboard</a>
+                <a href="projects.html" id="nav-projects">Projects</a>
+                <a href="users.html" id="nav-users">Users</a>
+                <a href="my-tasks.html" id="nav-my-tasks" style="display:none;">My Tasks</a>
+                <div class="nav-user-info" id="nav-user"></div>
+                <a href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- User Info -->
+        <div id="userInfoCard" class="card">
+            <!-- User details will be loaded here by JS -->
+            <p>Loading user details...</p>
+        </div>
+
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+            <!-- Assigned Tasks Section -->
+            <div id="assignedTasks">
+                <!-- Assigned tasks table will be loaded here -->
+            </div>
+
+            <!-- Participating Projects Section -->
+            <div id="participatingProjects">
+                <!-- Participating projects table will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/user-details.js"></script>
+</body>
+</html>

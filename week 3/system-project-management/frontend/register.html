@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-page">
+  <div class="center-box">
+    <div class="card auth-card">
+      <h2>Create an account</h2>
+      <p class="text-muted">Register as an employee to start receiving tasks.</p>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" required minlength="3" autocomplete="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required minlength="6" autocomplete="new-password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+      </form>
+
+      <p id="message" class="error-message small-text" style="margin-top: 12px;"></p>
+      <p class="small-text" style="text-align: center; margin-top: 4px;">
+        Already have an account?
+        <a class="link" href="login.html">Login</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>
