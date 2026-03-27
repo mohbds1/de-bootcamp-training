@@ -1,0 +1,8 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+sqlalchemy==2.0.35
+psycopg2-binary==2.9.9
+pandas==2.2.3
+faker==28.4.1
+schedule==1.2.2
+python-dotenv==1.0.1
