@@ -17,13 +17,13 @@
 ---
 
 ## 📖 Table of Contents
-- [Project Overview](#-project-overview)
-- [Architecture](#-architecture)
-- [Tech Stack](#-tech-stack)
-- [Database Subsystems](#-database-subsystems)
-- [Getting Started](#-getting-started)
-- [Pipeline Execution](#-pipeline-execution)
-- [API Endpoints](#-api-endpoints)
+- [Project Overview](#project-overview)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Database Subsystems](#database-subsystems)
+- [Getting Started](#getting-started)
+- [Pipeline Execution](#pipeline-execution)
+- [API Endpoints](#api-endpoints)
 
 ---
 
@@ -43,13 +43,24 @@ This project is an academic data engineering implementation that demonstrates th
 Below is the workflow showing how data transitions from raw generation to analytics:
 
 ```mermaid
-graph TD;
-    Gen[⚙️ Order Generator] -- 1 record / sec --> DB_Raw[(🐘 db_raw.raw_orders)]
-    DB_Raw -- Extract new records --> ETL[🔄 Pipeline (Pandas)]
-    ETL -- Transform & Clean --> ETL
-    ETL -- Load valid data --> DB_Analytics[(🐘 analytics.clean_orders)]
-    DB_Analytics -- Query --> API[🚀 FastAPI Service]
-    API -- Expose --> Client[💻 Client / Dashboard]
+graph TD
+    %% Phase 1: Generation
+    subgraph Phase_1[Phase 1: Data Generation]
+        Gen[Order Generator] -->|1 record / sec| DB_Raw[(Raw DB: db_raw)]
+    end
+
+    %% Phase 2: ETL
+    subgraph Phase_2[Phase 2: ETL Pipeline]
+        DB_Raw -->|Extract new records| ETL_Ext[Read to Pandas]
+        ETL_Ext -->|Transform & Clean| ETL_Load[Filter Valid Rows]
+        ETL_Load -->|Load clean data| DB_Analytics[(Analytics DB: clean_orders)]
+    end
+
+    %% Phase 3: Serving
+    subgraph Phase_3[Phase 3: API Service]
+        DB_Analytics -->|Query| API[FastAPI Service]
+        API -->|JSON Response| Client[Client / Dashboard]
+    end
 ```
 
 ---
@@ -91,7 +102,7 @@ Acts as the **Analytical Database** (Data Target). Contains exclusively validate
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/your-username/ecommerce-pipeline-project.git
+git clone https://github.com/mohbds1/de-bootcamp-training/ecommerce-pipeline-project.git
 cd ecommerce-pipeline-project
 ```
 
