@@ -1,0 +1,11 @@
+# Core data science stack
+pandas>=1.5.0
+numpy>=1.23.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Notebook environment
+jupyter>=1.0.0
+ipykernel>=6.0.0
