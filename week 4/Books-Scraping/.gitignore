@@ -1,0 +1,16 @@
+# Output Data
+/data/raw/*.csv
+/data/processed/**/*.csv
+
+# Downloaded Images
+/images/*.png
+/images/**/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+env/
+ENV/
