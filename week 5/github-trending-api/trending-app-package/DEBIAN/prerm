@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+systemctl stop trending-api.service || true
+systemctl disable trending-api.service || true
+ufw delete allow 8000/tcp || true
+
+exit 0
+

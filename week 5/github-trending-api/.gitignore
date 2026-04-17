@@ -1,0 +1,10 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore virtual environments (just in case you test locally)
+venv/
+env/
+
+# Ignore the compiled deb package (optional, but usually we put binaries in GitHub "Releases")
+# trending-app-package.deb

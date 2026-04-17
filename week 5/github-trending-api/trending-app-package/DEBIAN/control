@@ -1,0 +1,9 @@
+Package: trending-api
+Version: 1.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Maintainer: Your Name <student@example.com>
+Description: FastAPI service to scrape GitHub Trending repos.
+Depends: python3, python3-venv, ufw
