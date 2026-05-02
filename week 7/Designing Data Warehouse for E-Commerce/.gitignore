@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+.env
+
+# Local source DB (large; download Olist separately — see README)
+olist.sqlite
+
+# Runtime logs (may contain connection strings)
+pipeline.log
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
