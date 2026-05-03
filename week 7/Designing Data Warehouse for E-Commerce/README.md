@@ -1,75 +1,135 @@
-# Designing Data Warehouse for E-Commerce
+# Designing a Data Warehouse for E-Commerce
 
-Small end-to-end example: **SQLite (OLTP-style source) → Python ETL → PostgreSQL star schema**, built around the Olist e-commerce dataset pattern. The goal is a warehouse you can query for sales, customers, categories, and delivery behaviour without repeating the messy joins from the source every time.
+Week 7 bootcamp project: an end-to-end **medallion-style pipeline** that moves Brazilian e-commerce data (**Olist-style SQLite OLTP** → **Python ETL** → **PostgreSQL star schema**). The warehouse answers questions about revenue, customer value, product categories, and delivery performance without repeating fragile many-to-many joins at query time.
 
-## What this repo does
+## What the system does
 
-Source tables land in **Bronze** as-is. **Silver** cleans and integrates them (deduped customers, joined orders/items/products/payments, delivery metrics). **Gold** follows a simple star schema approach: dimensions for date, customer, product, and seller, plus facts at **order-item** grain (`fact_sales`) and **order** grain (`fact_delivery`).
+1. **Extract** seven normalized tables from a local SQLite file (`olist.sqlite`).
+2. **Load (Bronze)** each table into PostgreSQL as `bronze_<table_name>` with an `ingested_at` timestamp (full replace per run).
+3. **Transform (Silver)** in pandas: deduplicated customers, integrated sales lines with per-order payment attributes, English category labels, integer date keys, and order-level delivery KPIs.
+4. **Load (Gold)** with SQL inside a single transaction: truncate dimensions and facts (with cascade), rebuild `dim_date` from a calendar `generate_series`, insert dimensions from Bronze/Silver, then load `fact_sales` and `fact_delivery`.
 
-The pipeline is scripted in `data_pipeline.py` (extract, bronze load, silver transform, gold load). Design detail lives in `Data Warehouse Design and Implementation Report.md`.
+Each full run is **truncate-and-reload** for the Gold objects the script manages, so analytical tables are rebuilt from the latest source snapshot rather than incrementally merged.
 
-## Design choices worth calling out
+```mermaid
+flowchart LR
+  subgraph source [Source]
+    SQLite[(olist.sqlite)]
+  end
+  subgraph bronze [Bronze in PostgreSQL]
+    B1[bronze_orders ... bronze_order_payments]
+  end
+  subgraph silver [Silver in PostgreSQL]
+    S1[silver_customers]
+    S2[silver_sales]
+    S3[silver_delivery]
+  end
+  subgraph gold [Gold star schema]
+    D[dim_date dim_customers dim_products dim_sellers]
+    F[fact_sales fact_delivery]
+  end
+  SQLite -->|pandas read_sql| B1
+  B1 -->|pandas transforms| S1 & S2 & S3
+  S1 & S2 & S3 & B1 -->|SQL INSERT| D & F
+```
 
-**Payments.** One order can have more than one payment row. Merging payments directly onto order items would duplicate lines and inflate revenue. Therefore, payments are aggregated **per `order_id`** (taking the maximum installments and one `payment_type`) before joining — **without carrying the total `payment_value`**. This avoids any risk of double-counting a monetary value at the order-item grain. Revenue analysis relies on `price + freight_value` per line, which is always at the correct grain.
+## Source → Bronze mapping
 
-**Revenue in reporting.** Item revenue is taken as **`price + freight_value`** per line, consistent with the `total_item_value` field produced in Silver. That matches how the example SQL reports “total revenue” and customer lifetime value.
+| SQLite table | Bronze table |
+|--------------|--------------|
+| `orders` | `bronze_orders` |
+| `order_items` | `bronze_order_items` |
+| `customers` | `bronze_customers` |
+| `products` | `bronze_products` |
+| `sellers` | `bronze_sellers` |
+| `product_category_name_translation` | `bronze_product_category_name_translation` |
+| `order_payments` | `bronze_order_payments` |
 
-**Delivery analysis.** `fact_delivery` is one row per order. Reporting differentiates two views:
+## Silver layer (logic in `etl_logic.py`)
 
-- **Seller-based delivery performance** — links delivery to seller geography via `fact_sales`, but only at **`(order_id, seller_key)`** so multiple items from the same seller do not duplicate the same delivery.
-- **Customer-based delivery experience** — joins `fact_delivery` to `dim_customers` on `customer_key` for a customer-state view without touching line items.
+- **`silver_customers`**: `bronze_customers` with duplicates removed on `customer_id`.
+- **`silver_sales`**: `transform_data` merges order lines with orders, **aggregates payments per `order_id`** (max `payment_installments`, first `payment_type`), joins products and category translation, fills missing English category with `unknown`, builds `order_purchase_date_key` (`YYYYMMDD` int), and adds `total_item_value = price + freight_value`.
+- **`silver_delivery`**: `calculate_delivery_performance` on `orders` computes `days_to_delivery`, `is_late` (actual vs estimated), and purchase / estimated / actual **date keys** aligned with `dim_date`.
 
-**Date dimension.** `dim_date` is generated as a full calendar range — from the earliest purchase date to the latest actual delivery date — using a `generate_series` in the Gold load. This guarantees that all date keys used in both `fact_sales` and `fact_delivery` (including estimated and actual delivery dates) resolve correctly in any join. The dimension includes calendar attributes (day name, month, quarter, **weekday vs weekend**) to enable time-of-week analysis and any time-based drill-downs.
+## Gold layer (star schema)
 
-*Why `payment_value` was removed from `fact_sales`:* The fact grain is the order item. An order-level monetary total would repeat on every line for that order and break aggregations. Keeping payment behaviour as attributes (`payment_type`, `payment_installments`) is safe; revenue is computed from item `price` and `freight_value` only.
+| Object | Grain | Notes |
+|--------|--------|--------|
+| `dim_date` | Calendar day | Built from min purchase date in `silver_sales` through max actual delivery in `silver_delivery`; includes weekday/weekend and calendar attributes. |
+| `dim_customers` | Customer | From `silver_customers`. |
+| `dim_products` | Product | From `bronze_products` left join translation table for English category name. |
+| `dim_sellers` | Seller | From `bronze_sellers`. |
+| `fact_sales` | **Order line item** | Measures: `price`, `freight_value`, `payment_installments`, `payment_type`. Partitioned by `order_purchase_date_key` (range); the pipeline ensures a **default** partition exists for loads. |
+| `fact_delivery` | **Order** | One row per `order_id`: delivery timing keys, `days_to_delivery`, `is_late`. |
+| `fact_leads` | Lead (optional) | Present in `dw_ddl.sql` for extension; **not** loaded by the current pipeline. |
 
-## Repository layout
+The DDL defines `fact_delivery.delivery_status`, but the current ETL does not populate it; analytics in `reporting_queries.sql` use the timing and `is_late` fields.
+
+## Design choices (grain and money)
+
+**Payments.** One order can have multiple payment rows. Merging raw payments onto order items would duplicate lines and distort revenue. Payments are aggregated **per `order_id`** before the join. **`payment_value` is intentionally not carried** into `fact_sales` at line-item grain, so order-level totals cannot be double-counted when summing facts. Revenue in this model is **`price + freight_value` per line**, consistent with `total_item_value` in Silver and the example reports.
+
+**Delivery reporting.** Two complementary views avoid double-counting:
+
+- **Seller-based** — link `fact_delivery` to sellers via **`DISTINCT (order_id, seller_key)`** from `fact_sales` so multiple lines from the same seller do not duplicate the same delivery.
+- **Customer-based** — join `fact_delivery` to `dim_customers` for state-level delivery experience without going through line items.
+
+## Code map
 
 | File | Role |
 |------|------|
-| `data_pipeline.py` | Orchestrates extract, bronze/silver/gold loads; logging and retry wrapper around extract. |
-| `etl_logic.py` | Sales transform (per-order payment attributes: max installments, one `payment_type`; category fill; date key; `total_item_value`) and delivery KPIs plus delivery date keys. |
-| `dw_ddl.sql` | PostgreSQL DDL: dimensions, facts, indexes; `fact_sales` partitioned by `order_purchase_date_key`. |
-| `reporting_queries.sql` | Example analytics: trends, top customers, category revenue; **two separate delivery analyses** — seller-based (via `fact_sales` at `(order_id, seller_key)`) vs customer-based (via `fact_delivery` and `dim_customers`) — so duplication across facts is avoided. |
-| `Data Warehouse Design and Implementation Report.md` | Written design rationale (architecture, model, reporting). |
-
-`fact_leads` is included in the DDL for future extension, but is not loaded in the current pipeline.
+| `data_pipeline.py` | `ECommercePipeline`: SQLite extract (with retry), Bronze load, Silver orchestration, Gold SQL load; logging to console and `pipeline.log`. |
+| `etl_logic.py` | `transform_data`, `calculate_delivery_performance` — all pandas Silver rules. |
+| `dw_ddl.sql` | PostgreSQL DDL: dimensions, facts, indexes; `fact_sales` defined as a range-partitioned table. |
+| `reporting_queries.sql` | Example analytics: revenue trends, top customers by lifetime value, category revenue, seller- vs customer-based delivery metrics. |
 
 ## Prerequisites
 
-- Python 3.9+
-- PostgreSQL (empty database, user with rights to create objects)
-- **`olist.sqlite`** in the project directory (or adjust `source_db_path` in code). The file is **not** in the repo (ignored in `.gitignore` because it is large); obtain the Olist dataset and build or download a SQLite copy as needed.
+- **Python 3.9+**
+- **PostgreSQL** (empty database; user can create tables)
+- **`olist.sqlite`** in the same directory you run the script from (or pass a custom path to `ECommercePipeline`). The SQLite file is **not** committed (see `.gitignore`); use the [Olist Brazilian E-Commerce public dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) or equivalent export.
 
-Install packages:
+Install dependencies:
 
 ```bash
 pip install pandas sqlalchemy psycopg2-binary numpy
 ```
 
-## Run
+## Configuration and run
 
-1. Create a database and run **`dw_ddl.sql`** against it (creates tables, partitions, indexes).
+1. Create a database and execute **`dw_ddl.sql`** once (creates dimensions, facts, indexes, partitioned `fact_sales`).
 
-2. Set the warehouse connection: either pass `target_db_url` when constructing `ECommercePipeline`, or set the environment variable **`DATABASE_URL`** (for example `postgresql://user:password@localhost:5432/ecommerce_dw`). The default in code uses a placeholder password — replace it or use `DATABASE_URL` before running.
+2. Set the warehouse URL:
+   - Environment variable **`DATABASE_URL`** (recommended), e.g. `postgresql://user:password@localhost:5432/ecommerce_dw`, **or**
+   - Pass `target_db_url` when constructing `ECommercePipeline`, **or**
+   - Edit the placeholder in `_DEFAULT_TARGET_DB_URL` inside `data_pipeline.py` (not recommended for secrets).
 
-3. Execute:
+3. From this project folder (so `olist.sqlite` and `pipeline.log` resolve as expected):
 
 ```bash
 python data_pipeline.py
 ```
 
-Logs go to **`pipeline.log`** and the console.
+Optional programmatic use:
 
-Gold load is **truncate-and-reload** for the tables the script touches (`dim_*` and facts it fills), so each run replaces analytical data rather than appending incrementally.
+```python
+from data_pipeline import ECommercePipeline
+
+pipeline = ECommercePipeline(
+    target_db_url="postgresql://user:pass@localhost:5432/ecommerce_dw",
+    source_db_path="olist.sqlite",
+)
+pipeline.run_pipeline()
+```
 
 ## Reporting
 
-Open **`reporting_queries.sql`** in your SQL client against the warehouse. Queries are numbered and commented; delivery section labels **seller-based** vs **customer-based** explicitly so the two questions do not get mixed up.
-All queries are designed to avoid double counting when joining across fact tables.
+Run the numbered, commented statements in **`reporting_queries.sql`** in your SQL client against the warehouse. Delivery sections are explicitly labeled **seller-based** vs **customer-based** so aggregations stay at the correct grain.
+
+## Extending the project
+
+If you add incremental loads, more facts (e.g. populate `fact_leads`), or new dimensions, keep **fact grain** aligned to the business process and avoid many-to-one joins that duplicate fact rows when users sum measures.
 
 ---
 
-During development, the main challenge was avoiding duplication when combining payments and order items.
-
-If you extend the project (e.g. load `fact_leads`, incremental loads, or more dimensions), keep the same grain rules: match fact grain to the business process, and avoid many-to-one joins that duplicate facts when you aggregate.
+*Part of a Data Engineering bootcamp portfolio (A1 Consulting).*
