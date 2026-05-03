@@ -87,7 +87,7 @@ The DDL defines `fact_delivery.delivery_status`, but the current ETL does not po
 
 - **Python 3.9+**
 - **PostgreSQL** (empty database; user can create tables)
-- **`olist.sqlite`** in the same directory you run the script from (or pass a custom path to `ECommercePipeline`). The SQLite file is **not** committed (see `.gitignore`); use the [Olist Brazilian E-Commerce public dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) or equivalent export.
+- **`olist.sqlite`** in the same directory you run the script from (or pass a custom path to `ECommercePipeline`). The SQLite file is **not** committed (see `.gitignore`); use the [Olist Brazilian E-Commerce public dataset](https://www.kaggle.com/datasets/terencicp/e-commerce-dataset-by-olist-as-an-sqlite-database) or equivalent export.
 
 Install dependencies:
 
