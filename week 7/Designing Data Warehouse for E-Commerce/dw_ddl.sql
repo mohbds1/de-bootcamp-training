@@ -49,7 +49,6 @@ CREATE TABLE dim_sellers (
 -- ==========================================
 
 -- Fact Sales (Grain: Order Item)
--- Partitioned table: PRIMARY KEY must include the partition key (order_purchase_date_key).
 CREATE TABLE fact_sales (
     order_item_id SERIAL,
     order_id VARCHAR(50),
