@@ -1,0 +1,3 @@
+postgres_metastore_data/
+output/.*
+*.crc

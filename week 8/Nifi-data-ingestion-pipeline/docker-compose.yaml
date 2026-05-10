@@ -1,0 +1,72 @@
+services:
+  nifi:
+    image: apache/nifi:latest
+    container_name: nifi_assignment
+    ports:
+      - "8443:8443"
+
+    environment:
+      - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      - SINGLE_USER_CREDENTIALS_PASSWORD=DataEngineer123456
+      - NIFI_JVM_HEAP_INIT=512m
+      - NIFI_JVM_HEAP_MAX=1024m
+
+    volumes:
+      - ./data/input:/opt/data_input
+      - ./jdbc_drivers:/opt/jdbc_drivers
+      - ./custom_nars:/opt/nifi/nifi-current/nar_extensions
+
+    networks:
+      - assignment_net
+
+    depends_on:
+      - postgres_db
+      - itvdelab
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+  postgres_db:
+    image: postgres:13
+    container_name: postgres_assignment
+
+    ports:
+      - "5433:5432"
+
+    environment:
+      - POSTGRES_USER=nifi_user
+      - POSTGRES_PASSWORD=nifi_password
+      - POSTGRES_DB=nifi_database
+
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - assignment_net
+
+  itvdelab:
+    image: itversity/itvdelab
+    container_name: itvdelab_assignment
+    hostname: itvdelab
+
+    ports:
+      - "18080:8888"
+      - "19879:9870"
+      - "11000:10000"
+
+    environment:
+      SHELL: /bin/bash
+      
+    networks:
+      - assignment_net
+
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+
+networks:
+  assignment_net:
+    driver: bridge

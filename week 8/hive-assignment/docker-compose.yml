@@ -1,0 +1,50 @@
+services:
+
+  cluster_util_db:
+    image: postgres:13
+    container_name: hive_metastore_db
+    hostname: cluster_util_db
+
+    environment:
+      POSTGRES_USER: hive
+      POSTGRES_PASSWORD: itversity
+      POSTGRES_DB: metastore
+
+    volumes:
+      - ./postgres_metastore_data:/var/lib/postgresql/data
+
+    networks:
+      - hive_network
+
+  hive_lab:
+    image: itversity/itvdelab
+    container_name: hive_assignment
+    hostname: hive_assignment
+
+    ports:
+      - "18081:8888"
+      - "19880:9870"
+      - "11001:10000"
+
+    environment:
+      SHELL: /bin/bash
+
+    volumes:
+      - ./data:/opt/hive_data
+      - ./sql:/opt/hive_sql
+      - ./output:/opt/hive_output
+
+    networks:
+      - hive_network
+
+    depends_on:
+      - cluster_util_db
+
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+
+networks:
+  hive_network:
+    driver: bridge
