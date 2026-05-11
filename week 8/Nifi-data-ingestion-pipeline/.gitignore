@@ -1,0 +1,15 @@
+postgres_data/
+*.log
+*.tmp
+*.pid
+
+__pycache__/
+*.pyc
+
+.env
+
+nifi_state/
+flowfile_repository/
+content_repository/
+provenance_repository/
+database_repository/
