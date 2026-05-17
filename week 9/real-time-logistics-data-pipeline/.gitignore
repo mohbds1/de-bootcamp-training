@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+venv/
+.venv/
+
+# VSCode
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# NiFi runtime
+flowfile_repository/
+content_repository/
+database_repository/
+provenance_repository/
+state/
+
+# Hadoop
+tmp/
+*.crc
+
+# Data folders
+data/input/*
+data/errors/*
+data/output/*
+data/archive/*
+
+# Keep folders
+!data/input/.gitkeep
+!data/errors/.gitkeep
+!data/output/.gitkeep
+!data/archive/.gitkeep
+
+# Docker
+*.tar
+
+# Large exports
+*.gz
+
+# Screenshots cache
+screenshots/temp/
+
+# IDE
+.idea/
+
+# Kafka local files
+kafka-logs/
+
+# Generated files
+*.tmp
+
+# Custom NiFi NARs
+custom_nars/*.nar
+!custom_nars/README.md

@@ -1,0 +1,19 @@
+logistics_csv_schema
+{
+  "type": "record",
+  "name": "logistics_csv_schema",
+  "fields": [
+    { "name": "event_id", "type": "string" },
+    { "name": "shipment_id", "type": "string" },
+    { "name": "vehicle_id", "type": "string" },
+    { "name": "driver_id", "type": "string" },
+    { "name": "city", "type": ["null", "string"] },
+    { "name": "latitude", "type": "double" },
+    { "name": "longitude", "type": "double" },
+    { "name": "speed_kmh", "type": "double" },
+    { "name": "package_weight_kg", "type": "double" },
+    { "name": "delivery_distance_km", "type": "double" },
+    { "name": "shipment_status", "type": ["null", "string"] },
+    { "name": "event_timestamp", "type": "string" }
+  ]
+}

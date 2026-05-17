@@ -1,0 +1,11 @@
+<configuration>
+    <property>
+        <name>dfs.client.use.datanode.hostname</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.hostname</name>
+        <value>itvdelab</value>
+    </property>
+</configuration>
