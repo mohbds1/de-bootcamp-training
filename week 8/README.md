@@ -28,7 +28,6 @@ Build and manage analytical tables using HiveQL while applying Data Warehouse co
 - Apache Hive
 - Hadoop HDFS
 - HiveQL
-- Linux
 
 ---
 
