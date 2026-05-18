@@ -2,21 +2,57 @@
 
 Welcome to the **Week 9** repository of the Data Engineering Bootcamp.
 
-This week focuses on advanced Big Data Engineering concepts using:
+This week focuses on advanced Big Data Engineering concepts using distributed processing and real-time streaming technologies such as:
 
 - Apache Spark
+- PySpark
 - Apache Kafka
 - Apache NiFi
 - Hadoop HDFS
-- Distributed Streaming Architectures
+- Docker
 
-The projects in this repository demonstrate both batch-oriented distributed computation and real-time streaming data pipelines commonly used in modern enterprise data platforms.
+The projects in this repository demonstrate both batch-oriented distributed computation and enterprise-grade real-time streaming architectures commonly used in modern data platforms.
 
 ---
 
 # 📂 Projects Showcase
 
-## 1. ⚡ Spark RDD Employee Analysis (`spark-rdd-employee-analysis`)
+## 1. ⚡ Spark DataFrame Practice (`spark-assignment`)
+
+A hands-on Apache Spark project focused on understanding and practicing PySpark DataFrame operations.
+
+### 📌 Objective
+
+Learn how Spark DataFrames are created, inspected, cleaned, transformed, and joined while working with structured datasets inside a distributed Spark environment.
+
+### 🧠 Key Concepts Covered
+
+- SparkSession
+- DataFrame Operations
+- Schema Inspection
+- Filtering and Selection
+- Column Transformations
+- Null Handling
+- Duplicate Removal
+- Aggregations
+- Joins
+- Data Validation
+
+### 📓 Included Notebooks
+
+- `01_spark_dataframe_basics.ipynb`
+- `02_dataframe_transformations.ipynb`
+
+### 🛠️ Technologies Used
+
+- Apache Spark
+- PySpark
+- Docker
+- Jupyter Notebook
+
+---
+
+## 2. 👨‍💼 Spark RDD Employee Analysis (`spark-rdd-employee-analysis`)
 
 A distributed data processing project built using Apache Spark RDD APIs inside a Docker-based Spark environment.
 
@@ -52,7 +88,7 @@ Practice low-level Spark RDD transformations and actions while processing semi-s
 
 ---
 
-## 2. 🚚 Real-Time Logistics Data Pipeline (`real-time-logistics-data-pipeline`)
+## 3. 🚚 Real-Time Logistics Data Pipeline (`real-time-logistics-data-pipeline`)
 
 A complete real-time streaming architecture built using Apache NiFi, Apache Kafka, and Hadoop HDFS.
 
@@ -102,14 +138,17 @@ HDFS
 
 ---
 
-# 🧱 Week 9 Architecture Focus
+# 🧱 Week 9 Engineering Focus
 
-This week combines both:
+This week combines multiple Big Data Engineering paradigms:
 
 * Distributed Batch Processing
+* Distributed DataFrames
+* Low-Level RDD APIs
 * Real-Time Stream Processing
+* Distributed Storage Systems
 
-to simulate modern enterprise-grade data engineering systems.
+to simulate real-world enterprise data engineering architectures.
 
 ---
 
@@ -118,6 +157,8 @@ to simulate modern enterprise-grade data engineering systems.
 By completing these projects, the following practical skills were developed:
 
 * Building distributed Spark pipelines
+* Working with Spark DataFrames
+* Using low-level RDD APIs
 * Designing real-time streaming architectures
 * Handling corrupted streaming data
 * Building scalable Kafka pipelines
@@ -144,12 +185,22 @@ By completing these projects, the following practical skills were developed:
 ```text
 week 9/
 │
+├── spark-assignment/
+│
 ├── spark-rdd-employee-analysis/
 │
 ├── real-time-logistics-data-pipeline/
 │
 └── README.md
 ```
+
+---
+
+# 🌟 Final Notes
+
+This week provided practical exposure to both distributed batch analytics and real-time streaming systems.
+
+The projects focused not only on writing code, but also on understanding scalability, reliability, data validation, distributed processing behavior, and enterprise-level pipeline design.
 
 ---
 
