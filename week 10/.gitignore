@@ -1,0 +1,47 @@
+# 1. Spark Streaming Checkpoints & State
+data/checkpoint/
+checkpoint/
+.checkpoint/
+
+# 2. Output Data & Storage Sinks
+data/output/
+output/
+*.parquet
+*.parquet.crc
+._SUCCESS.crc
+
+# 3. Hive & Derby Database (Local Metastore)
+data/metastore_db/
+data/spark-warehouse/
+metastore_db/
+spark-warehouse/
+derby.log
+
+# 4. Input Data (Optional: uncomment if you don't want to upload sample data to Git)
+# data/json/
+# data/csv/
+# *.json
+# *.csv
+
+# 5. Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# 6. Python Environments & Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# 7. OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

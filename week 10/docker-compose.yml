@@ -1,0 +1,31 @@
+services:
+  itvdelab:
+    image: itversity/itvdelab
+    container_name: itvdelab_assignment
+    hostname: itvdelab
+
+    ports:
+          - "18080:8889"
+          - "19879:9870"
+          - "11000:10000"
+          - "9000:9000"
+          - "9866:9866"
+          - "4040:4040"
+
+    volumes:
+      - ./data:/data
+
+    environment:
+      SHELL: /bin/bash
+
+    networks:
+      - itvdelabnw
+
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+
+networks:
+  itvdelabnw:
+    driver: bridge

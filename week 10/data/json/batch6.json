@@ -1,0 +1,12 @@
+[
+  {"event_timestamp": "2024-01-15 15:30:00", "country": "USA", "temperature": 15.2},
+  {"event_timestamp": "2024-01-15 15:32:15", "country": "UK", "temperature": 8.1},
+  {"event_timestamp": "2024-01-15 15:35:30", "country": "Japan", "temperature": 12.0},
+  {"event_timestamp": "2024-01-15 15:38:45", "country": "Germany", "temperature": 6.3},
+  {"event_timestamp": "2024-01-15 15:42:00", "country": "France", "temperature": 9.5},
+  {"event_timestamp": "2024-01-15 15:45:15", "country": "Brazil", "temperature": 32.1},
+  {"event_timestamp": "2024-01-15 15:48:30", "country": "India", "temperature": 26.0},
+  {"event_timestamp": "2024-01-15 15:52:45", "country": "Australia", "temperature": 34.2},
+  {"event_timestamp": "2024-01-15 15:55:00", "country": "Canada", "temperature": -3.0},
+  {"event_timestamp": "2024-01-15 15:58:15", "country": "Mexico", "temperature": 21.5}
+]

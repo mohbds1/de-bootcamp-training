@@ -1,0 +1,22 @@
+[
+  {"event_timestamp": "2024-01-15 14:00:45", "country": "France", "temperature": 9.1},
+  {"event_timestamp": "2024-01-15 14:05:00", "country": "Brazil", "temperature": 31.3},
+  {"event_timestamp": "2024-01-15 14:10:15", "country": "India", "temperature": 25.3},
+  {"event_timestamp": "2024-01-15 14:15:30", "country": "Australia", "temperature": 33.7},
+  {"event_timestamp": "2024-01-15 14:20:45", "country": "Canada", "temperature": -3.9},
+  {"event_timestamp": "2024-01-15 14:25:00", "country": "USA", "temperature": 14.8},
+  {"event_timestamp": "2024-01-15 14:30:15", "country": "Mexico", "temperature": 20.8},
+  {"event_timestamp": "2024-01-15 14:35:30", "country": "UK", "temperature": 7.9},
+  {"event_timestamp": "2024-01-15 14:40:45", "country": "Japan", "temperature": 11.3},
+  {"event_timestamp": "2024-01-15 14:45:00", "country": "Germany", "temperature": 5.7},
+  {"event_timestamp": "2024-01-15 11:55:15", "country": "USA", "temperature": 13.5},
+  {"event_timestamp": "2024-01-15 10:25:00", "country": "UK", "temperature": 5.0},
+  {"event_timestamp": "2024-01-15 12:48:30", "country": "Canada", "temperature": -4.7},
+  {"event_timestamp": "2024-01-15 13:35:45", "country": "Japan", "temperature": 10.9},
+  {"event_timestamp": "2024-01-15 11:18:00", "country": "Brazil", "temperature": 29.5},
+  {"event_timestamp": "2024-01-15 14:12:15", "country": "India", "temperature": 25.1},
+  {"event_timestamp": "2024-01-15 13:42:30", "country": "France", "temperature": 8.9},
+  {"event_timestamp": "2024-01-15 12:15:45", "country": "Australia", "temperature": 32.3},
+  {"event_timestamp": "2024-01-15 14:18:00", "country": "Mexico", "temperature": 20.6},
+  {"event_timestamp": "2024-01-15 10:38:15", "country": "Germany", "temperature": 3.7}
+]
